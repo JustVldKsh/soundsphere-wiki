@@ -286,9 +286,9 @@ playfield:addDeltaTimeJudgement({
 	transform = playfield:newLaneCenterTransform(1080),
 	judgements = {
 		"judges/miss.png",
-        -0.121,
-        "judges/bad.png",
-        -0.097,
+    	-0.121,
+    	"judges/bad.png",
+    	-0.097,
 		"judges/good.png",
 		-0.067,
 		"judges/great.png",
@@ -303,9 +303,9 @@ playfield:addDeltaTimeJudgement({
 		0.067,
 		"judges/good.png",
 		0.097,
-        "judges/bad.png",
-        0.121,
-        "judges/miss.png"
+    	"judges/bad.png",
+    	0.121,
+    	"judges/miss.png"
 	}
 })
 ```
