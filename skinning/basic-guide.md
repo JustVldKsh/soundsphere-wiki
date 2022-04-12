@@ -24,13 +24,17 @@ In this guide we'll create a basic arrow skin with judgements and other ui eleme
 * Things are layered on the screen in the order of their appearance in the skin file.
 * To make it all work, skin needs 4 things: necessary functions, noteskin, playfield and `return noteskin` in the end of the file.
 
+
 ## Step 0: Importing functions
 Just add those right in the beginning of the file and don't question anything, without them it'll never work.
 ```lua
 local NoteSkinVsrg = require("sphere.models.NoteSkinModel.NoteSkinVsrg")
 local BasePlayfield = require("sphere.models.NoteSkinModel.BasePlayfield")
 ```
+
+
 ## Step 1: Noteskin
+
 ### Declaring noteskin
 First step in making a skin is, of course, filling out required skin metadata.
 Copy this code and edit as you need, explanations below
@@ -197,17 +201,6 @@ noteskin:addMeasureLine({
 ```
 * color - in 0-1 range, order is red green blue alpha
 
-#### BGA
-If not present, BGA won't appear even if it is enabled in settings
-```lua
-noteskin:addBga({
-	x = 0,
-	y = 0,
-	w = 1,
-	h = 1,
-	color = {0.25, 0.25, 0.25, 1}
-})
-```
 
 ## Step 2: Playfield
 Time to draw the playfield itself starting with creating it first:
@@ -216,14 +209,7 @@ local playfield = BasePlayfield:new({
 	noteskin = noteskin
 })
 ```
-From now on things 
-### BGA
-If you don't want to add BGA then skip this too
-```
-playfield:addBga({
-	transform = {{1 / 2, -16 / 9 / 2}, {0, -7 / 9 / 2}, 0, {0, 16 / 9}, {0, 16 / 9}, 0, 0, 0, 0}
-})
-```
+From now on things will get layered by the order of appearance in the file.
 
 ### Drawing notes and receptors
 Here we'll draw notes and receptors on the screen itself. If you don't need receptors (for example if you use bottom of the screen instead) then don't add them.
@@ -306,6 +292,8 @@ But in case it did crashed, you can try few things:
 * if you still don't have pixel.png in your skin, it can be found in other soundsphere skins or in the resources folder in the game's root.
 * If you can't figure out the problem on your own, feel free to ask for help in #help or #skins channels of [soundsphere Discord](https://discord.gg/ubKMtTk).
 
+
 ## Closing thoughts
 After following this guide you should end up with a relatively basic soundsphere skin that you can modify as you wish.
 If you think you can improve this guide in any way, feel free to [contribute on Github](https://github.com/JustVldKsh/soundsphere-wiki)
+_Note: had to leave out adding BGA to the skin from the guide because of page build errors._
