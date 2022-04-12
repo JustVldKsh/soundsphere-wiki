@@ -21,7 +21,7 @@ _Note: this guide doesn't use 100%-custom elements or moddedgame folder, it list
 ---
 
 ## Basic skin structure
-* Skins should be named `<filename>.skin.lua`, for example `4key.skin.lua` and should go in their respective skin folder, for example `skins/example-skin`.
+* Skins should contain `skin` in the filename and have extension `.lua`, probably the most convenient and universal method of doing so is `<filename>.skin.lua`, and should go in their respective skin folder, for example `skins/example-skin`.
 * * Note: if you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
 * Skin's textures can be located anywhere in the skin folder.
 * Things are layered on the screen in the order of their appearance in the skin file.
@@ -45,7 +45,7 @@ First step in making a skin is, of course, filling out required skin metadata.
 Copy this code and edit as you need, explanations below
 ```lua
 local noteskin = NoteSkinVsrg:new({
-	path = ...,
+--	path = ...,
 	name = "example 4k arrow",
 	inputMode = "4key",
 	range = {-1, 1},
@@ -55,9 +55,7 @@ local noteskin = NoteSkinVsrg:new({
 ```
 #### path
 {: .no_toc }
-Path where the skin will source image files from.  
-Default: `...` (same directory)  
-Examples: `../example` or `.../textures`
+Path to the skin file, not necessary to add
 
 #### name
 {: .no_toc }
@@ -71,15 +69,17 @@ Examples: `4key`, `7key1scratch`, `5key1pedal1scratch`
 
 #### range
 {: .no_toc }
-Idk what does, leave it at `{-1, 1}`
+Render distance (in screens) for notes below and above hitposition  
+Default:`{-1, 1}`
 
 #### unit
 {: .no_toc }
-Leave it at `480`, it affects scale of the elements on the screen and guide pretty much expects it to be equal 480 because it's easier to place elements and size them on the playfield (results in smaller numbers overall, but if you need to place elements more precisely, feel free to change to `1080` and scale all other size variables accordingly).
+Height of the screen (going down)  
+Default: `480`
 
 #### hitposition
 {: .no_toc }
-Horizontal position of the note receptors. 0 is the center, + is down and - is up
+Horizontal position of the note receptors. 0 is the top, + is down and - is up
 
 ### Adding and ordering inputs in the skin
 To be able to actually use the skin, you need to set inputs the skin accepts. Amount of possible inputs should be the same as the set input mode and be separated by commas, but they can be ordered in any way.
@@ -105,6 +105,7 @@ noteskin:setColumns({
 * align - horizontal align of the conveyor, can be `left`, `center` and `right`.
 * width - width of each note, number of values should be equal to amount of inputs.
 * space - space between notes and both sides of the conveyor, number of values should be equal to amount of inputs + 1 (so if there are 4 inputs then there should be 5 values and so on)
+* measure line will use full width of the conveyor (sum of all widths and spaces)
 
 ### Adding textures
 This step can be skipped if you want to waste your time by typing out paths to the textures further in the skin.  
@@ -175,7 +176,12 @@ noteskin:setImages({
 ]]
 ```
 
-### Short notes
+### Using note images
+
+In this section you'll set note images using textures set above  
+_Note: image, head, body and tail all can be both tables or strings if you want to reuse the same image_
+
+#### Short notes
 ```lua
 noteskin:setShortNote({
 	image = {"left", "down", "up", "right"},
@@ -185,7 +191,7 @@ noteskin:setShortNote({
 * image - image(s) used as notes
 * h - height of notes
 
-### Long notes
+#### Long notes
 ```lua
 noteskin:setLongNote({
 	head = {"left", "down", "up", "right"},
@@ -242,9 +248,26 @@ playfield:disableCamera()
 
 * playfield:addNotes adds notes and addKeyImages adds receptors
 * h - is obviously receptor height
-* padding is tied to hitposition in this example so it moves together with it, 0 is at bottom
+* padding is tied to hitposition and unit in this example so it moves together with it, 0 is at bottom
 * pressed - images when keys are pressed/held
 * released - images when keys are released
+
+### Guidelines (or lane separators)
+
+By adding these it's possible to visually divide the lanes in case if it's more comfortable for you to see on which lane where goes which note
+```lua
+playfield:addGuidelines({
+	y = {0, 0, 0, 0, 0},
+	w = {0, 0, 0, 0, 0},
+	h = {480, 480, 480, 480, 480},
+	image = "pixel.png",
+	color = {1, 1, 1, 0.5},
+})
+```
+* y - top of the guideline image
+* w - width (0 - no separation)
+* h - height (going down)
+* image and color are the usual
 
 ### Base elements
 Base elements can be added (but not mandatory) with `playfield:addBaseElements()`  
@@ -288,7 +311,7 @@ playfield:addDeltaTimeJudgement({
 ```
 * x, y, ox, oy - judgement location, change only x and y
 * rate - image scale
-* transform - i guess sort of a fancy align, idk actually
+* transform - love2d object transformations, [more info on that](https://love2d.org/wiki/love.math.newTransform)
 * judgements - array of alternating judgement images and timings, center is 0 and image between specified timings is used.
 _Note: if you use custom timings.lua then different judgement might appear as worst, for example bad instead of miss, tweak the skin as needed. Also default soundsphere miss window is 160ms._
 
@@ -309,4 +332,4 @@ But in case it did crashed, you can try few things:
 ## Closing thoughts
 After following this guide you should end up with a relatively basic soundsphere skin that you can modify as you wish.  
 If you think you can improve this guide in any way, feel free to [contribute on Github](https://github.com/JustVldKsh/soundsphere-wiki)  
-_Note: had to leave out adding BGA to the skin from the guide because of page build errors._
+_Note: had to leave out adding BGA to the skin from the guide because of page build errors, for that just look at the bundled skins' code._
