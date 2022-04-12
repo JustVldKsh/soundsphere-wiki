@@ -3,6 +3,7 @@ layout: default
 title: Basic Guide
 parent: Skinning
 ---
+
 # Basic skinning guide
 {: .no_toc }
 In this guide we'll create a basic arrow skin with judgements and other ui elements for 4key mode that you can customize however you like.  
@@ -17,20 +18,26 @@ _Note: this guide doesn't use 100%-custom elements or moddedgame folder, it list
 {:toc}
 </details>
 
+---
+
 ## Basic skin structure
 * Skins should be named `<filename>.skin.lua`, for example `4key.skin.lua` and should go in their respective skin folder, for example `skins/example-skin`.
 * * Note: if you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
 * Skin's textures can be located anywhere in the skin folder.
 * Things are layered on the screen in the order of their appearance in the skin file.
 * To make it all work, skin needs 4 things: necessary functions, noteskin, playfield and `return noteskin` in the end of the file.
+
 ---
+
 ## Step 0: Importing functions
 Just add those right in the beginning of the file and don't question anything, without them it'll never work.
 ```lua
 local NoteSkinVsrg = require("sphere.models.NoteSkinModel.NoteSkinVsrg")
 local BasePlayfield = require("sphere.models.NoteSkinModel.BasePlayfield")
 ```
+
 ---
+
 ## Step 1: Noteskin
 
 ### Declaring noteskin
@@ -202,7 +209,9 @@ noteskin:addMeasureLine({
 })
 ```
 * color - in 0-1 range, order is red green blue alpha
+
 ---
+
 ## Step 2: Playfield
 Time to draw the playfield itself starting with creating it first:
 ```lua
@@ -282,7 +291,9 @@ playfield:addDeltaTimeJudgement({
 * transform - i guess sort of a fancy align, idk actually
 * judgements - array of alternating judgement images and timings, center is 0 and image between specified timings is used.
 _Note: if you use custom timings.lua then different judgement might appear as worst, for example bad instead of miss, tweak the skin as needed. Also default soundsphere miss window is 160ms._
+
 ---
+
 ## Step 3: "Exporting" and troubleshooting
 To "export" the skin so the game can actually read the information from it, add `return noteskin` in the end and save the file. Now you can try the skin ingame and if it didn't crashed and works as intended then congrats, you did everything correctly.
 
@@ -292,7 +303,9 @@ But in case it did crashed, you can try few things:
 * If game tells if table x should have y values, then add/remove values in the corresponding table
 * if you still don't have pixel.png in your skin, it can be found in other soundsphere skins or in the resources folder in the game's root.
 * If you can't figure out the problem on your own, feel free to ask for help in #help or #skins channels of [soundsphere Discord](https://discord.gg/ubKMtTk).
+
 ---
+
 ## Closing thoughts
 After following this guide you should end up with a relatively basic soundsphere skin that you can modify as you wish.  
 If you think you can improve this guide in any way, feel free to [contribute on Github](https://github.com/JustVldKsh/soundsphere-wiki)  
