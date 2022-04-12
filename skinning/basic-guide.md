@@ -219,7 +219,7 @@ local playfield = BasePlayfield:new({
 From now on things 
 ### BGA
 If you don't want to add BGA then skip this too
-```lua
+```
 playfield:addBga({
 	transform = {{1 / 2, -16 / 9 / 2}, {0, -7 / 9 / 2}, 0, {0, 16 / 9}, {0, 16 / 9}, 0, 0, 0, 0}
 })
