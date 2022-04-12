@@ -21,8 +21,9 @@ _Note: this guide doesn't use 100%-custom elements or moddedgame folder, it list
 ---
 
 ## Basic skin structure
-* Skins should contain `skin` in the filename and have extension `.lua`, probably the most convenient and universal method of doing so is `<filename>.skin.lua`, and should go in their respective skin folder, for example `skins/example-skin`.
-* * Note: if you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
+* Skins should contain `skin` in the filename and have extension `.lua` and should go in their respective skin folder, for example `skins/example-skin`.
+	* Preferred naming scheme is `<filename>.skin.lua`
+	* If you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
 * Skin's textures can be located anywhere in the skin folder.
 * Things are layered on the screen in the order of their appearance in the skin file.
 * To make it all work, skin needs 4 things: necessary functions, noteskin, playfield and `return noteskin` in the end of the file.
@@ -286,9 +287,9 @@ playfield:addDeltaTimeJudgement({
 	transform = playfield:newLaneCenterTransform(1080),
 	judgements = {
 		"judges/miss.png",
-    	-0.121,
-    	"judges/bad.png",
-    	-0.097,
+		-0.121,
+		"judges/bad.png",
+		-0.097,
 		"judges/good.png",
 		-0.067,
 		"judges/great.png",
@@ -303,9 +304,9 @@ playfield:addDeltaTimeJudgement({
 		0.067,
 		"judges/good.png",
 		0.097,
-    	"judges/bad.png",
-    	0.121,
-    	"judges/miss.png"
+		"judges/bad.png",
+		0.121,
+		"judges/miss.png"
 	}
 })
 ```
