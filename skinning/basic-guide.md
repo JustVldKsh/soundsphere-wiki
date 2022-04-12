@@ -75,7 +75,7 @@ Idk what does, leave it at `{-1, 1}`
 
 #### unit
 {: .no_toc }
-Leave it at `480`, it affects scale of the elements on the screen and game pretty much expects it to be equal 480.
+Leave it at `480`, it affects scale of the elements on the screen and guide pretty much expects it to be equal 480 because it's easier to place elements and size them on the playfield (results in smaller numbers overall, but if you need to place elements more precisely, feel free to change to `1080` and scale all other size variables accordingly).
 
 #### hitposition
 {: .no_toc }
@@ -233,7 +233,7 @@ playfield:addNotes()
 --receptors
 playfield:addKeyImages({
 	h = 64,
-	padding = 480-noteskin.hitposition,
+	padding = noteskin.unit-noteskin.hitposition,
 	pressed = {"receptors/left1.png", "receptors/down1.png", "receptors/up1.png", "receptors/right1.png"},
 	released = {"receptors/left0.png", "receptors/down0.png", "receptors/up0.png", "receptors/right0.png"},
 })
