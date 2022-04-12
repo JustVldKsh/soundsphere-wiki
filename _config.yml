@@ -1,0 +1,9 @@
+title: "mini soundsphere wiki"
+remote_theme: just-the-docs/just-the-docs
+color_scheme: "dark"
+search_enabled: false
+aux_links:
+  "Contribute to this wiki":
+    - "//github.com/JustVldKsh/soundsphere-wiki"
+  "Soundsphere":
+    - "//soundsphere.xyz"
