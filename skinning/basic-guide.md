@@ -49,25 +49,31 @@ local noteskin = NoteSkinVsrg:new({
 })
 ```
 #### path
+{: .no_toc }
 Path where the skin will source image files from.
 Default: `...` (same directory)
 Examples: `../example` or `.../textures`
 
 #### name
+{: .no_toc }
 Name of the skin in noteskins menu
 Examples: `JustVldKsh's 4k arrow` or `circle`
 
 #### inputMode
+{: .no_toc }
 Input mode this skin file is for, can contain `key`, `pedal` and `scratch`
 Examples: `4key`, `7key1scratch`, `5key1pedal1scratch`
 
 #### range
+{: .no_toc }
 Idk what does, leave it at `{-1, 1}`
 
 #### unit
+{: .no_toc }
 Leave it at `480`, it affects scale of the elements on the screen and game pretty much expects it to be equal 480.
 
 #### hitposition
+{: .no_toc }
 Horizontal position of the note receptors. 0 is the center, + is down and - is up
 
 ### Adding and ordering inputs in the skin
@@ -188,10 +194,8 @@ noteskin:setLongNote({
 * tail - end
 * h - texture height
 
-### Non-mandatory elements
-
-#### Measure line
-Can be added but not necessary, removing it is the same as using NML (NoMeasureLine) mod
+### Measure line
+Can be added but not mandatory unlike elements above, removing it is the same as using NML (NoMeasureLine) mod
 ```lua
 noteskin:addMeasureLine({
 	h = 4,
