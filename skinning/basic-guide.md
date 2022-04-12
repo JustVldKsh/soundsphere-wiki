@@ -5,8 +5,8 @@ parent: Skinning
 ---
 # Basic skinning guide
 {: .no_toc }
-In this guide we'll create a basic arrow skin with judgements and other ui elements for 4key mode that you can customize however you like.
-> Note: this guide doesn't use 100%-custom elements or moddedgame folder, it lists only things provided by default.
+In this guide we'll create a basic arrow skin with judgements and other ui elements for 4key mode that you can customize however you like.  
+_Note: this guide doesn't use 100%-custom elements or moddedgame folder, it lists only things provided by default._
 
 <details open markdown="block">
   <summary>
@@ -19,24 +19,22 @@ In this guide we'll create a basic arrow skin with judgements and other ui eleme
 
 ## Basic skin structure
 * Skins should be named `<filename>.skin.lua`, for example `4key.skin.lua` and should go in their respective skin folder, for example `skins/example-skin`.
-* > Note: if you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
+* * Note: if you want to add more than one keymode to your skin, you'll have to create another skin file(s) in the same folder.
 * Skin's textures can be located anywhere in the skin folder.
 * Things are layered on the screen in the order of their appearance in the skin file.
 * To make it all work, skin needs 4 things: necessary functions, noteskin, playfield and `return noteskin` in the end of the file.
-
-
+---
 ## Step 0: Importing functions
 Just add those right in the beginning of the file and don't question anything, without them it'll never work.
 ```lua
 local NoteSkinVsrg = require("sphere.models.NoteSkinModel.NoteSkinVsrg")
 local BasePlayfield = require("sphere.models.NoteSkinModel.BasePlayfield")
 ```
-
-
+---
 ## Step 1: Noteskin
 
 ### Declaring noteskin
-First step in making a skin is, of course, filling out required skin metadata.
+First step in making a skin is, of course, filling out required skin metadata.  
 Copy this code and edit as you need, explanations below
 ```lua
 local noteskin = NoteSkinVsrg:new({
@@ -50,18 +48,18 @@ local noteskin = NoteSkinVsrg:new({
 ```
 #### path
 {: .no_toc }
-Path where the skin will source image files from.
-Default: `...` (same directory)
+Path where the skin will source image files from.  
+Default: `...` (same directory)  
 Examples: `../example` or `.../textures`
 
 #### name
 {: .no_toc }
-Name of the skin in noteskins menu
+Name of the skin in noteskins menu  
 Examples: `JustVldKsh's 4k arrow` or `circle`
 
 #### inputMode
 {: .no_toc }
-Input mode this skin file is for, can contain `key`, `pedal` and `scratch`
+Input mode this skin file is for, can contain `key`, `pedal` and `scratch`  
 Examples: `4key`, `7key1scratch`, `5key1pedal1scratch`
 
 #### range
@@ -102,8 +100,8 @@ noteskin:setColumns({
 * space - space between notes and both sides of the conveyor, number of values should be equal to amount of inputs + 1 (so if there are 4 inputs then there should be 5 values and so on)
 
 ### Adding textures
-This step can be skipped if you want to waste your time by typing out paths to the textures further in the skin.
-> Note: some things (like judgements) can't be used if added here.
+This step can be skipped if you want to waste your time by typing out paths to the textures further in the skin.  
+_Note: some things (like judgements) can't be used if added here._  
 As previously said, textures can be located anywhere in the skin folder (feel free to draw your own textures or if you can't then just grab from another one), so for everything to be clean we'll make following folder structure:
 ```
 +-- judges
@@ -204,8 +202,7 @@ noteskin:addMeasureLine({
 })
 ```
 * color - in 0-1 range, order is red green blue alpha
-
-
+---
 ## Step 2: Playfield
 Time to draw the playfield itself starting with creating it first:
 ```lua
@@ -216,7 +213,7 @@ local playfield = BasePlayfield:new({
 From now on things will get layered by the order of appearance in the file.
 
 ### Drawing notes and receptors
-Here we'll draw notes and receptors on the screen itself. If you don't need receptors (for example if you use bottom of the screen instead) then don't add them.
+Here we'll draw notes and receptors on the screen itself. If you don't need receptors (for example if you use bottom of the screen instead) then don't add them.  
 You also can edit camera perspective in this step if you know how to.
 
 ```lua
@@ -241,15 +238,15 @@ playfield:disableCamera()
 * released - images when keys are released
 
 ### Base elements
-Base elements can be added (but not mandatory) with `playfield:addBaseElements()`
+Base elements can be added (but not mandatory) with `playfield:addBaseElements()`  
 If you need to add only specific elements then you can use `playfield addBaseElements("progress", "hp", "score")` instead. There are 6 base elements: `progress`, `hp`, `score`, `accuracy`, `combo` and `hit error`.
 
 If you need to customize one or multiple base elements then specify other non-modified elements and use [BasePlayfield.lua](https://github.com/semyon422/soundsphere/blob/master/sphere/models/NoteSkinModel/BasePlayfield.lua) as reference.
 
 ### Judgements
-It's also possible to add judgements to the skin, which we'll do here.
-In this example we'll use osu!mania OD 10 timing windows.
-> Note: timing windows are used in seconds, so if the window is 16ms then it'll be 0.016 seconds, mirrored on both positive and negative side.
+It's also possible to add judgements to the skin, which we'll do here.  
+In this example we'll use osu!mania OD 10 timing windows.  
+_Note: timing windows are used in seconds, so if the window is 16ms then it'll be 0.016 seconds, mirrored on both positive and negative side._
 ```lua
 playfield:addDeltaTimeJudgement({
 	x = 0, y = 540, ox = 0.5, oy = 0.5,
@@ -284,8 +281,8 @@ playfield:addDeltaTimeJudgement({
 * rate - image scale
 * transform - i guess sort of a fancy align, idk actually
 * judgements - array of alternating judgement images and timings, center is 0 and image between specified timings is used.
-> Note: if you use custom timings.lua then different judgement might appear as worst, for example bad instead of miss, tweak the skin as needed. Also default soundsphere miss window is 160ms.
-
+_Note: if you use custom timings.lua then different judgement might appear as worst, for example bad instead of miss, tweak the skin as needed. Also default soundsphere miss window is 160ms._
+---
 ## Step 3: "Exporting" and troubleshooting
 To "export" the skin so the game can actually read the information from it, add `return noteskin` in the end and save the file. Now you can try the skin ingame and if it didn't crashed and works as intended then congrats, you did everything correctly.
 
@@ -295,9 +292,8 @@ But in case it did crashed, you can try few things:
 * If game tells if table x should have y values, then add/remove values in the corresponding table
 * if you still don't have pixel.png in your skin, it can be found in other soundsphere skins or in the resources folder in the game's root.
 * If you can't figure out the problem on your own, feel free to ask for help in #help or #skins channels of [soundsphere Discord](https://discord.gg/ubKMtTk).
-
-
+---
 ## Closing thoughts
-After following this guide you should end up with a relatively basic soundsphere skin that you can modify as you wish.
-If you think you can improve this guide in any way, feel free to [contribute on Github](https://github.com/JustVldKsh/soundsphere-wiki)
+After following this guide you should end up with a relatively basic soundsphere skin that you can modify as you wish.  
+If you think you can improve this guide in any way, feel free to [contribute on Github](https://github.com/JustVldKsh/soundsphere-wiki)  
 _Note: had to leave out adding BGA to the skin from the guide because of page build errors._
